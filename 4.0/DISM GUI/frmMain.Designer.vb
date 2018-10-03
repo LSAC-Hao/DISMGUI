@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmMain
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.txtWIM = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -50,6 +50,9 @@ Partial Class frmMain
         Me.BackgroundWorkerDisMount = New System.ComponentModel.BackgroundWorker()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.btnDisgard = New System.Windows.Forms.Button()
+        Me.btnCleanupWim = New System.Windows.Forms.Button()
+        Me.chkMountReadOnly = New System.Windows.Forms.CheckBox()
         Me.btnDisplayWIMInfo = New System.Windows.Forms.Button()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.btnGetAllDriverInfo = New System.Windows.Forms.Button()
@@ -119,6 +122,13 @@ Partial Class frmMain
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.btnGetApps = New System.Windows.Forms.Button()
+        Me.TabPage10 = New System.Windows.Forms.TabPage()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.btnLoadSystem = New System.Windows.Forms.Button()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.btnLoadSoftware = New System.Windows.Forms.Button()
+        Me.btnUnloadSoftware = New System.Windows.Forms.Button()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.TabPage8 = New System.Windows.Forms.TabPage()
         Me.chkCaptureVerify = New System.Windows.Forms.CheckBox()
         Me.btnAppend = New System.Windows.Forms.Button()
@@ -147,7 +157,8 @@ Partial Class frmMain
         Me.BackgroundWorkerDISMCommand = New System.ComponentModel.BackgroundWorker()
         Me.dlgOpenXML = New System.Windows.Forms.OpenFileDialog()
         Me.dlgOpenMSP = New System.Windows.Forms.OpenFileDialog()
-        Me.chkMountReadOnly = New System.Windows.Forms.CheckBox()
+        Me.BackgroundWorkerRegCommand = New System.ComponentModel.BackgroundWorker()
+        Me.btnUnloadSystem = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -161,6 +172,7 @@ Partial Class frmMain
         Me.TabPage5.SuspendLayout()
         Me.TabPage6.SuspendLayout()
         Me.TabPage7.SuspendLayout()
+        Me.TabPage10.SuspendLayout()
         Me.TabPage8.SuspendLayout()
         Me.TabPage9.SuspendLayout()
         Me.SuspendLayout()
@@ -232,7 +244,7 @@ Partial Class frmMain
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenDISMLogToolStripMenuItem, Me.GetWIMInfoToolStripMenuItem, Me.CleanupWIMToolStripMenuItem, Me.CleanupImageToolStripMenuItem, Me.UseOnlineModeToolStripMenuItem, Me.AboutToolStripMenuItem})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
         Me.ToolsToolStripMenuItem.Text = "Tools"
         '
         'OpenDISMLogToolStripMenuItem
@@ -366,6 +378,7 @@ Partial Class frmMain
         Me.TabControl1.Controls.Add(Me.TabPage5)
         Me.TabControl1.Controls.Add(Me.TabPage6)
         Me.TabControl1.Controls.Add(Me.TabPage7)
+        Me.TabControl1.Controls.Add(Me.TabPage10)
         Me.TabControl1.Controls.Add(Me.TabPage8)
         Me.TabControl1.Controls.Add(Me.TabPage9)
         Me.TabControl1.Location = New System.Drawing.Point(11, 27)
@@ -376,6 +389,8 @@ Partial Class frmMain
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.btnDisgard)
+        Me.TabPage1.Controls.Add(Me.btnCleanupWim)
         Me.TabPage1.Controls.Add(Me.chkMountReadOnly)
         Me.TabPage1.Controls.Add(Me.btnDisplayWIMInfo)
         Me.TabPage1.Controls.Add(Me.btnOpenWIM)
@@ -396,6 +411,34 @@ Partial Class frmMain
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Mount Control"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'btnDisgard
+        '
+        Me.btnDisgard.Location = New System.Drawing.Point(389, 294)
+        Me.btnDisgard.Name = "btnDisgard"
+        Me.btnDisgard.Size = New System.Drawing.Size(127, 64)
+        Me.btnDisgard.TabIndex = 21
+        Me.btnDisgard.Text = "Discard mounted WIM"
+        Me.btnDisgard.UseVisualStyleBackColor = True
+        '
+        'btnCleanupWim
+        '
+        Me.btnCleanupWim.Location = New System.Drawing.Point(522, 294)
+        Me.btnCleanupWim.Name = "btnCleanupWim"
+        Me.btnCleanupWim.Size = New System.Drawing.Size(127, 64)
+        Me.btnCleanupWim.TabIndex = 20
+        Me.btnCleanupWim.Text = "Cleanup WIM"
+        Me.btnCleanupWim.UseVisualStyleBackColor = True
+        '
+        'chkMountReadOnly
+        '
+        Me.chkMountReadOnly.AutoSize = True
+        Me.chkMountReadOnly.Location = New System.Drawing.Point(9, 137)
+        Me.chkMountReadOnly.Name = "chkMountReadOnly"
+        Me.chkMountReadOnly.Size = New System.Drawing.Size(76, 17)
+        Me.chkMountReadOnly.TabIndex = 19
+        Me.chkMountReadOnly.Text = "Read Only"
+        Me.chkMountReadOnly.UseVisualStyleBackColor = True
         '
         'btnDisplayWIMInfo
         '
@@ -1064,6 +1107,76 @@ Partial Class frmMain
         Me.btnGetApps.Text = "Get Applications"
         Me.btnGetApps.UseVisualStyleBackColor = True
         '
+        'TabPage10
+        '
+        Me.TabPage10.Controls.Add(Me.btnUnloadSystem)
+        Me.TabPage10.Controls.Add(Me.Label25)
+        Me.TabPage10.Controls.Add(Me.btnLoadSystem)
+        Me.TabPage10.Controls.Add(Me.Label24)
+        Me.TabPage10.Controls.Add(Me.btnLoadSoftware)
+        Me.TabPage10.Controls.Add(Me.btnUnloadSoftware)
+        Me.TabPage10.Controls.Add(Me.Label19)
+        Me.TabPage10.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage10.Name = "TabPage10"
+        Me.TabPage10.Size = New System.Drawing.Size(655, 364)
+        Me.TabPage10.TabIndex = 9
+        Me.TabPage10.Text = "Registry Settings"
+        Me.TabPage10.UseVisualStyleBackColor = True
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(19, 138)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(180, 13)
+        Me.Label25.TabIndex = 12
+        Me.Label25.Text = "HKEY_LOCAL_MACHINE\SYSTEM"
+        '
+        'btnLoadSystem
+        '
+        Me.btnLoadSystem.Location = New System.Drawing.Point(416, 128)
+        Me.btnLoadSystem.Name = "btnLoadSystem"
+        Me.btnLoadSystem.Size = New System.Drawing.Size(63, 32)
+        Me.btnLoadSystem.TabIndex = 10
+        Me.btnLoadSystem.Text = "Load"
+        Me.btnLoadSystem.UseVisualStyleBackColor = True
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(19, 73)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(197, 13)
+        Me.Label24.TabIndex = 9
+        Me.Label24.Text = "HKEY_LOCAL_MACHINE\SOFTWARE"
+        '
+        'btnLoadSoftware
+        '
+        Me.btnLoadSoftware.Location = New System.Drawing.Point(416, 63)
+        Me.btnLoadSoftware.Name = "btnLoadSoftware"
+        Me.btnLoadSoftware.Size = New System.Drawing.Size(63, 32)
+        Me.btnLoadSoftware.TabIndex = 7
+        Me.btnLoadSoftware.Text = "Load"
+        Me.btnLoadSoftware.UseVisualStyleBackColor = True
+        '
+        'btnUnloadSoftware
+        '
+        Me.btnUnloadSoftware.Location = New System.Drawing.Point(515, 63)
+        Me.btnUnloadSoftware.Name = "btnUnloadSoftware"
+        Me.btnUnloadSoftware.Size = New System.Drawing.Size(79, 32)
+        Me.btnUnloadSoftware.TabIndex = 2
+        Me.btnUnloadSoftware.Text = "Unload"
+        Me.btnUnloadSoftware.UseVisualStyleBackColor = True
+        '
+        'Label19
+        '
+        Me.Label19.Location = New System.Drawing.Point(19, 13)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(607, 32)
+        Me.Label19.TabIndex = 1
+        Me.Label19.Text = "Click Load to import registry hive from WIM file into a temporary hive named WIM " &
+    "in host registry. Click Unload to save and unload temporary hive."
+        '
         'TabPage8
         '
         Me.TabPage8.Controls.Add(Me.chkCaptureVerify)
@@ -1308,15 +1421,17 @@ Partial Class frmMain
         'BackgroundWorkerDISMCommand
         '
         '
-        'chkMountReadOnly
+        'BackgroundWorkerRegCommand
         '
-        Me.chkMountReadOnly.AutoSize = True
-        Me.chkMountReadOnly.Location = New System.Drawing.Point(9, 137)
-        Me.chkMountReadOnly.Name = "chkMountReadOnly"
-        Me.chkMountReadOnly.Size = New System.Drawing.Size(76, 17)
-        Me.chkMountReadOnly.TabIndex = 19
-        Me.chkMountReadOnly.Text = "Read Only"
-        Me.chkMountReadOnly.UseVisualStyleBackColor = True
+        '
+        'btnUnloadSystem
+        '
+        Me.btnUnloadSystem.Location = New System.Drawing.Point(515, 128)
+        Me.btnUnloadSystem.Name = "btnUnloadSystem"
+        Me.btnUnloadSystem.Size = New System.Drawing.Size(79, 32)
+        Me.btnUnloadSystem.TabIndex = 13
+        Me.btnUnloadSystem.Text = "Unload"
+        Me.btnUnloadSystem.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -1355,6 +1470,8 @@ Partial Class frmMain
         Me.TabPage6.PerformLayout()
         Me.TabPage7.ResumeLayout(False)
         Me.TabPage7.PerformLayout()
+        Me.TabPage10.ResumeLayout(False)
+        Me.TabPage10.PerformLayout()
         Me.TabPage8.ResumeLayout(False)
         Me.TabPage8.PerformLayout()
         Me.TabPage9.ResumeLayout(False)
@@ -1489,5 +1606,15 @@ Partial Class frmMain
     Friend WithEvents chkApplyVerify As System.Windows.Forms.CheckBox
     Friend WithEvents chkCaptureVerify As System.Windows.Forms.CheckBox
     Friend WithEvents chkMountReadOnly As System.Windows.Forms.CheckBox
-
+    Friend WithEvents TabPage10 As TabPage
+    Friend WithEvents Label19 As Label
+    Friend WithEvents btnUnloadSoftware As Button
+    Friend WithEvents Label25 As Label
+    Friend WithEvents btnLoadSystem As Button
+    Friend WithEvents Label24 As Label
+    Friend WithEvents btnLoadSoftware As Button
+    Friend WithEvents btnCleanupWim As Button
+    Friend WithEvents btnDisgard As Button
+    Friend WithEvents BackgroundWorkerRegCommand As System.ComponentModel.BackgroundWorker
+    Friend WithEvents btnUnloadSystem As Button
 End Class

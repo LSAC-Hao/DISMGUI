@@ -31,6 +31,9 @@ Public Class frmMain
     Dim strName As String
     Dim strCompression As String
     Dim strAppendIndex As String
+    Dim SoftwareMounted As Boolean = False
+    Dim SystemMounted As Boolean = False
+    Dim strRegArguments As String
 
 
 
@@ -129,8 +132,6 @@ Public Class frmMain
         BackgroundWorkerDisMount.RunWorkerAsync()
         frmProgress.ShowDialog()
         txtOutput.Text = strOutput
-
-
     End Sub
 
    
@@ -1038,5 +1039,112 @@ Public Class frmMain
         frmProgress.ShowDialog()
         txtOutput.Text = strOutput
 
+    End Sub
+
+    Private Sub btnUnloadSoftware_Click(sender As Object, e As EventArgs) Handles btnUnloadSoftware.Click
+        If WIMMounted = False Then
+            MessageBox.Show("No WIM is mounted.  You must mount a WIM before running this command.")
+        ElseIf SoftwareMounted = False Then
+            MessageBox.Show("No Software Registry hive is loaded.  You must load software registry before running this command.")
+        Else
+            SoftwareMounted = False
+            strRegArguments = "unload HKLM\WIM_SOFTWARE"
+            BackgroundWorkerRegCommand.RunWorkerAsync(strRegArguments)
+            frmProgress.ShowDialog()
+            txtOutput.Text = strOutput
+        End If
+    End Sub
+
+    Private Sub BackgroundWorkerRegCommand_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorkerRegCommand.DoWork
+        Dim strInput As String = e.Argument
+        strDISMExitCode = ""
+        Dim DISM As New Process()
+        DISM.StartInfo.RedirectStandardOutput = True
+        DISM.StartInfo.RedirectStandardError = True
+        DISM.StartInfo.UseShellExecute = False
+        DISM.StartInfo.CreateNoWindow = True
+        DISM.StartInfo.FileName = "reg.exe"
+        DISM.StartInfo.Arguments = strInput
+        strOutput = "Command line that ran is reg.exe " & DISM.StartInfo.Arguments
+        DISM.Start()
+        strOutput = strOutput & vbCr & vbCr & DISM.StandardOutput.ReadToEnd()
+        DISM.WaitForExit()
+        strDISMExitCode = DISM.ExitCode
+    End Sub
+
+    Private Sub BackgroundWorkerRegCommand_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorkerRegCommand.RunWorkerCompleted
+        strRegArguments = ""
+        frmProgress.Close()
+    End Sub
+
+    Private Sub btnCleanupWim_Click(sender As Object, e As EventArgs) Handles btnCleanupWim.Click
+        If WIMMounted = True Then
+            MessageBox.Show("WIM is mounted.  You must dismount a WIM before running this command.")
+        Else
+            strDISMArguments = "/cleanup-wim"
+            BackgroundWorkerDISMCommand.RunWorkerAsync(strDISMArguments)
+            frmProgress.ShowDialog()
+            txtOutput.Text = strOutput
+        End If
+    End Sub
+
+    Private Sub btnDisgard_Click(sender As Object, e As EventArgs) Handles btnDisgard.Click
+        If txtMount.Text = "" Then
+            MessageBox.Show("You must specify mounted folder.")
+        Else
+            strDISMArguments = "/Unmount-Image /MountDir:""" & txtMount.Text & """ /discard"
+            BackgroundWorkerDISMCommand.RunWorkerAsync(strDISMArguments)
+            frmProgress.ShowDialog()
+            txtOutput.Text = strOutput
+        End If
+
+    End Sub
+
+    Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        TabControl1.Width = Width * 0.95
+        txtOutput.Width = Width * 0.95
+        btnExit.Left = Width * 0.95 - btnExit.Width
+    End Sub
+
+    Private Sub btnLoadSoftware_Click(sender As Object, e As EventArgs) Handles btnLoadSoftware.Click
+        If WIMMounted = False Then
+            MessageBox.Show("No WIM is mounted.  You must mount a WIM before running this command.")
+        ElseIf SoftwareMounted Then
+            MessageBox.Show("Software hive is already loaded.")
+        Else
+            SoftwareMounted = True
+            strRegArguments = "load HKLM\WIM_SOFTWARE """ & strMountedImageLocation & "\Windows\System32\config\SOFTWARE"""
+            BackgroundWorkerRegCommand.RunWorkerAsync(strRegArguments)
+            frmProgress.ShowDialog()
+            txtOutput.Text = strOutput
+        End If
+    End Sub
+
+    Private Sub btnLoadSystem_Click(sender As Object, e As EventArgs) Handles btnLoadSystem.Click
+        If WIMMounted = False Then
+            MessageBox.Show("No WIM is mounted.  You must mount a WIM before running this command.")
+        ElseIf SystemMounted Then
+            MessageBox.Show("System hive is already loaded.")
+        Else
+            SystemMounted = True
+            strRegArguments = "load HKLM\WIM_SYSTEM """ & strMountedImageLocation & "\Windows\System32\config\SYSTEM"""
+            BackgroundWorkerRegCommand.RunWorkerAsync(strRegArguments)
+            frmProgress.ShowDialog()
+            txtOutput.Text = strOutput
+        End If
+    End Sub
+
+    Private Sub btnUnloadSystem_Click(sender As Object, e As EventArgs) Handles btnUnloadSystem.Click
+        If WIMMounted = False Then
+            MessageBox.Show("No WIM is mounted.  You must mount a WIM before running this command.")
+        ElseIf SystemMounted = False Then
+            MessageBox.Show("No System Registry hive is loaded.  You must load System registry before running this command.")
+        Else
+            SystemMounted = False
+            strRegArguments = "unload HKLM\WIM_SYSTEM"
+            BackgroundWorkerRegCommand.RunWorkerAsync(strRegArguments)
+            frmProgress.ShowDialog()
+            txtOutput.Text = strOutput
+        End If
     End Sub
 End Class
